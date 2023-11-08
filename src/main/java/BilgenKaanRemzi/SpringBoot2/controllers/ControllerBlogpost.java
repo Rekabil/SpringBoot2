@@ -5,6 +5,7 @@ import BilgenKaanRemzi.SpringBoot2.entites.Blogpost;
 import BilgenKaanRemzi.SpringBoot2.services.ServiziAutore;
 import BilgenKaanRemzi.SpringBoot2.services.ServiziBlogpost;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,8 @@ public class ControllerBlogpost {
     private ServiziBlogpost serviziBlogpost;
 
     @GetMapping("")
-    public List<Blogpost> getBlogposts(){
-        return serviziBlogpost.GetBlogposts();
+    public Page<Blogpost> getBlogposts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size, @RequestParam(defaultValue = "id") String orderBy){
+        return serviziBlogpost.GetBlogposts(page, size, orderBy);
     }
 
     @PostMapping("")
