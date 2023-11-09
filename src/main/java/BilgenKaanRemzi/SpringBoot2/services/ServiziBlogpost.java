@@ -3,12 +3,17 @@ package BilgenKaanRemzi.SpringBoot2.services;
 import BilgenKaanRemzi.SpringBoot2.entites.Blogpost;
 import BilgenKaanRemzi.SpringBoot2.exceptions.NotFoundException;
 import BilgenKaanRemzi.SpringBoot2.repositories.BlogpostRepository;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Service
@@ -16,6 +21,9 @@ public class ServiziBlogpost {
     @Autowired
     private BlogpostRepository blogpostRepository;
 
+    @Autowired
+    private Cloudinary cloudinary;
+    
     public Blogpost save(Blogpost body){
 
         return blogpostRepository.save(body);
@@ -46,4 +54,7 @@ public class ServiziBlogpost {
                 return blogpostRepository.save(found);
     }
 
+    public String uploadPicture(MultipartFile file) throws IOException {
+        return (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+    }
 }

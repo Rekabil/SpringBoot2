@@ -1,5 +1,6 @@
 package BilgenKaanRemzi.SpringBoot2;
 
+import com.cloudinary.Cloudinary;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
